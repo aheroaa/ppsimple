@@ -34,7 +34,7 @@ port表示调试模式时运行的端口，默认为6001，执行__npm run dev__
 ```
 npm run dev
 ```
-调试代码，会自动打开浏览器，运行您的构建的项目，如果项目是运行于**IIS**、**Tomcat**等其它服务器上面，可手动引用 __http://localhost:[port]/[entry].js__，也能实现无刷新自动加载变动。
+调试代码，会自动打开浏览器，运行您的构建的项目，如果项目是运行于**IIS**、**Tomcat**等其它服务器上面，可手动引用 [http://localhost:[port]/[entry].js]，也能实现无刷新自动加载变动。
 ```
 npm run build
 ```
