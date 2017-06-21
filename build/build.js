@@ -12,7 +12,6 @@ let webpackConfig = require('./webpack.prod.conf')
 let spinner = ora('building for production...')
 spinner.start()
 
-
 rm(path.join(config.build.assetsRoot,config.build.assetsSubDirectory),err=>{
     if(err) throw err
     webpack(webpackConfig,(err1,stats)=>{
@@ -27,8 +26,8 @@ rm(path.join(config.build.assetsRoot,config.build.assetsSubDirectory),err=>{
         })+'\n\n')
 
         console.log(chalk.cyan(' Build complete.\n'))
-        console.log(chalk.yellow(
-            ' Tip: use HTTP server instead of file://'
-        ))
+        // console.log(chalk.yellow(
+        //     ' Tip: use HTTP server instead of file://'
+        // ))
     })
 })

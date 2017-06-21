@@ -5,21 +5,18 @@ let paths = require('../input')
 var glob = require('glob')
 let pro_path = paths.pro_path
 
-
-
 let getEntries = function (globPath) {
   var entries = {}
   glob.sync(globPath).forEach(function (entry) {
-    var moduleName = entry.match(/(\w+).\w+$/)[1];
+    var moduleName = entry.match(/([-\w]+).\w+$/)[1];
     entries[moduleName] = entry
-  });
-  return entries;
+  })
+  return entries
 }
-
 
 module.exports = {
   pro_path: pro_path,
-  entry: getEntries(path.join(paths.src_path, '**/*.js')),
+  entry: getEntries(path.join(paths.src_path, paths.entry_expr)),
   build: {
     env: env.NODE_ENV,
     index: path.resolve(pro_path, paths.asset_path, 'index.html'),
@@ -34,10 +31,10 @@ module.exports = {
   },
   dev: {
     env: devenv,
-    port: 6001,
-    autoOpenBrowser: true,
+    port: paths.devport,
+    autoOpenBrowser: false,
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/', // path.resolve(pro_path, paths.asset_path),
+    assetsPublicPath: '/',  // path.resolve(pro_path, paths.asset_path),
     proxyTable: {},
     cssSourceMap: false
   }

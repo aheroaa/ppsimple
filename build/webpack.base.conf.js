@@ -3,15 +3,14 @@ let config = require('../config')
 let paths = require('../input')
 let vueLoaderConfig = require('./vue-loader.conf')
 
-
 module.exports = {
   entry: config.entry,
   output: {
-    path: config.build.assetsPublicPath,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production' ?
-      config.build.assetsPublicPath :
-      config.dev.assetsPublicPath
+    path: config.build.assetsRoot, // config.build.assetsPublicPath, 
+    filename: '[name].bundle.js',
+    publicPath: process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.json']
@@ -34,7 +33,11 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        // exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
+        // query: {
+        //   presets: ['es2015']
+        // },
         include: [paths.src_path]
       },
       {

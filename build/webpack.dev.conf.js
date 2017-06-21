@@ -6,14 +6,15 @@ let merge = require('webpack-merge')
 let baseWebpackConfig = require('./webpack.base.conf')
 let HtmlWebpackPlugin = require('html-webpack-plugin')
 let FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
+let VConsolePlugin = require('vconsole-webpack-plugin')
 
 Object.keys(baseWebpackConfig.entry).forEach(name => {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(config.entry[name])
 })
 
+// console.log(baseWebpackConfig.entry)
 
-
+// return
 
 let webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -32,7 +33,7 @@ let webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-let pages = utils.getEntries(path.join(config.pro_path, './**/html/**/*.html'))
+let pages = utils.getEntries(path.join(config.pro_path, '!(node_modules|bower_components)**/**/html/**/*.html'))
 for (var page in pages) {
   let conf = {
     filename: page + '.html',
@@ -49,12 +50,13 @@ for (var page in pages) {
   webpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
 }
 
-
-let VConsolePlugin = require('vconsole-webpack-plugin')
 webpackConfig.plugins.push(
   new VConsolePlugin({
     enable: true
   })
 )
+
+var fs=require('fs')
+fs.writeFileSync('D:/webpack.config.txt', JSON.stringify(webpackConfig))
 
 module.exports = webpackConfig

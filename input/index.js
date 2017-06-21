@@ -5,10 +5,12 @@ let conf = require('./index.conf.json')
 let pro_path = path.resolve(__dirname, conf.root)
 let relative_path =pro_path // '../' //conf.root
 
-let [src_path, dist_path, asset_path] = [
+let [src_path, dist_path, asset_path, entry_expr, devport] = [
     path.join(relative_path, conf.src),
     path.join(relative_path, conf.dist),
-    path.join(relative_path, conf.asset)
+    path.join(relative_path, conf.asset),
+    conf.entry,
+    conf.devport
 ]
 
 module.exports = {
@@ -16,5 +18,7 @@ module.exports = {
   pro_path,
   src_path,
   dist_path,
-  asset_path
+  asset_path,
+  entry_expr,
+  devport
 }

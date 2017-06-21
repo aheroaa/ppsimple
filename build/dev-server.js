@@ -20,9 +20,6 @@ let proxyTable = config.dev.proxyTable
 let app = express()
 let compiler = webpack(webpackConfig)
 
-
-
-
 let devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true

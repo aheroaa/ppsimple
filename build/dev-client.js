@@ -1,9 +1,9 @@
 /* eslint-disable */
 require('eventsource-polyfill')
-let config = require('../config')
-let port = process.env.PORT || config.dev.port
-var hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true&path=http://localhost:'+port+'/__webpack_hmr')
+let port= require('../input').devport
 
+
+var hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true&path=http://localhost:6001/__webpack_hmr')
 
 hotClient.subscribe(function (event) {
   if (event.action === 'reload') {
