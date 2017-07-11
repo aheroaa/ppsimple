@@ -32,7 +32,7 @@ module.exports = {
   dev: {
     env: devenv,
     port: paths.devport,
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',  // path.resolve(pro_path, paths.asset_path),
     proxyTable: {},
