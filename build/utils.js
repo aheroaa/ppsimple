@@ -80,6 +80,5 @@ exports.getEntries = function (globPath) {
         var moduleName = entry.match(/(\w+).\w+$/)[1];
         entries[moduleName] = entry
     });
-    console.log(entries)
     return entries;
 }
