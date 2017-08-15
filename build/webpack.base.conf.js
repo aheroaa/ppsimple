@@ -7,10 +7,10 @@ module.exports = {
   entry: config.entry,
   output: {
     path: config.build.assetsRoot, // config.build.assetsPublicPath, 
-    filename: '[name].bundle.js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    filename: '[name].js',
+    publicPath: process.env.NODE_ENV === 'production' ?
+      config.build.assetsPublicPath :
+      config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.json']
@@ -18,13 +18,13 @@ module.exports = {
   module: {
     rules: [
       // {
-      //     test: /\.(js|vue)$/,
-      //     loader: 'eslint-loader',
-      //     enforce: 'pre',
-      //     include: [paths.src_path],
-      //     options: {
-      //         formatter: require('eslint-friendly-formatter')
-      //     }
+      //   test: /\.(js|vue)$/,
+      //   loader: 'eslint-loader',
+      //   enforce: 'pre',
+      //   include: [paths.src_path],
+      //   options: {
+      //     formatter: require('eslint-friendly-formatter')
+      //   }
       // },
       {
         test: /\.vue$/,
@@ -33,12 +33,12 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        // exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        // query: {
-        //   presets: ['es2015']
-        // },
-        include: [paths.src_path]
+        query: {
+          presets: ['es2015']
+        } // ,
+        // include: [paths.src_path]
       },
       {
         test: /\.scss$/,

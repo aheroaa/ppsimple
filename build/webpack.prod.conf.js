@@ -1,4 +1,5 @@
 let path = require('path')
+var fs = require('fs')
 let utils = require('./utils')
 let webpack = require('webpack')
 let config = require('../config')
@@ -42,25 +43,34 @@ let webpackConfig = merge(baseWebPackConfig, {
         safe: true
       }
     }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   minChunks: (module, count) => {
-    //     let resource = module.resource
-    //     let check = resource && /\.js$/.test(resource) && resource.indexOf('node_modules') >= 0
-    //     return check
-    //   }
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'mainfest',
-    //   chunks: ['vendor']
-    // }),
-    new CopyWebpackPlugin([{
-      from: path.resolve(config.pro_path, 'static'),
-      to: config.build.assetsSubDirectory,
-      ignore: ['.*']
-    }])
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: (module, count) => {
+        let resource = module.resource
+        return resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'mainfest',
+      chunks: ['vendor']
+    })
   ]
 })
+
+try{
+  if (fs.statSync(path.resolve(config.pro_path, 'static')).isDirectory()) {
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([{
+        from: path.resolve(config.pro_path, 'static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }])
+    )
+  }
+}catch(e){
+  
+}
+  
 
 let pages = utils.getEntries(path.join(config.pro_path, '!(node_modules|bower_components)**/**/html/**/*.html'))
 for (var page in pages) {

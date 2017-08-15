@@ -12,10 +12,6 @@ Object.keys(baseWebpackConfig.entry).forEach(name => {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(config.entry[name])
 })
 
-// console.log(baseWebpackConfig.entry)
-
-// return
-
 let webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -56,7 +52,6 @@ webpackConfig.plugins.push(
   })
 )
 
-var fs=require('fs')
-fs.writeFileSync('D:/webpack.config.txt', JSON.stringify(webpackConfig))
+
 
 module.exports = webpackConfig

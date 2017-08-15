@@ -5,10 +5,21 @@ let paths = require('../input')
 var glob = require('glob')
 let pro_path = paths.pro_path
 
+/**
+ * get entries from source expression
+ * 
+ * @method getEntries
+ * @param {String} globPath 
+ */
 let getEntries = function (globPath) {
   var entries = {}
   glob.sync(globPath).forEach(function (entry) {
-    var moduleName = entry.match(/([-\w]+).\w+$/)[1];
+    var moduleName = entry.match(/(\w+\/?[-\w]+).\w+$/)[1]
+
+    // type 1: replace directory to a '-' splitted word
+    // entries[moduleName.replace('/', '-')] = entry
+
+    // type 2: keep directory stracture in destination place
     entries[moduleName] = entry
   })
   return entries
@@ -16,6 +27,7 @@ let getEntries = function (globPath) {
 
 module.exports = {
   pro_path: pro_path,
+  src_path: paths.src_path,
   entry: getEntries(path.join(paths.src_path, paths.entry_expr)),
   build: {
     env: env.NODE_ENV,
