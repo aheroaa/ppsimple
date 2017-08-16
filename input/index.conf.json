@@ -1,8 +1,17 @@
+// {
+//   "root": "../../",
+//   "entry": "**/js/*/*.js",
+//   "src": "pack/src",
+//   "dist": "asset",
+//   "asset": "asset",
+//   "devport": 6001
+// }
+
 {
   "root": "../../",
-  "entry": "**/js/*/*.js",
-  "src": "pack/src",
-  "dist": "asset",
-  "asset": "asset",
+  "entry": "**/util-*.js",
+  "src": "src",
+  "dist": "dist",
+  "asset": "dist",
   "devport": 6001
 }

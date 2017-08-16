@@ -12,6 +12,7 @@ let pro_path = paths.pro_path
  * @param {String} globPath 
  */
 let getEntries = function (globPath) {
+  console.log(globPath)
   var entries = {}
   glob.sync(globPath).forEach(function (entry) {
     var moduleName = entry.match(/(\w+\/?[-\w]+).\w+$/)[1]
