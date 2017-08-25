@@ -24,6 +24,16 @@ let webpackConfig = merge(baseWebPackConfig, {
     filename: utils.assetsPath('js/[name].js?v=[chunkhash:7]'),
     chunkFilename: utils.assetsPath('js/[id].js?v=[chunkhash:7]')
   },
+  node: {
+    'fs': 'empty',
+    'path': 'empty',
+    'process': false
+  },
+  resolve: {
+    alias: {
+      'html-minifier': 'node-noop'
+    }
+  },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
@@ -43,21 +53,21 @@ let webpackConfig = merge(baseWebPackConfig, {
         safe: true
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: (module, count) => {
-        let resource = module.resource
-        return resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'mainfest',
-      chunks: ['vendor']
-    })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   minChunks: (module, count) => {
+    //     let resource = module.resource
+    //     return resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
+    //   }
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'mainfest',
+    //   chunks: ['vendor']
+    // })
   ]
 })
 
-try{
+try {
   if (fs.statSync(path.resolve(config.pro_path, 'static')).isDirectory()) {
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([{
@@ -67,10 +77,10 @@ try{
       }])
     )
   }
-}catch(e){
-  
+} catch (e) {
+
 }
-  
+
 
 let pages = utils.getEntries(path.join(config.pro_path, '!(node_modules|bower_components)**/**/html/**/*.html'))
 for (var page in pages) {
