@@ -1,6 +1,6 @@
 {
   "name": "ppsimple",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "project simple pack",
   "main": "index.js",
   "keywords": [
@@ -19,8 +19,7 @@
     "url": "https://github.com/aheroaa/ppsimple.git"
   },
   "dependencies": {
-    "emf": "^1.0.1",
-    "webpack": "^2.5.1"
+    "emf": "^1.0.1"
   },
   "devDependencies": {
     "async": "^2.4.1",
