@@ -42,3 +42,22 @@ module.exports = {
   entry_expr,
   devport
 }
+
+
+// {
+//   "root": "../../",
+//   "entry": "**/js/*/*.js",
+//   "src": "pack/src",
+//   "dist": "asset",
+//   "asset": "asset",
+//   "devport": 6001
+// }
+
+// {
+//   "root": "../../",
+//   "entry": "**/util-*.js",
+//   "src": "src",
+//   "dist": "dist",
+//   "asset": "dist",
+//   "devport": 6001
+// }

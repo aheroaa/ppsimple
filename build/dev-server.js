@@ -8,6 +8,7 @@ if (!process.env.NODE_ENV) {
 let opn = require('opn')
 let path = require('path')
 let express = require('express')
+let cors = require('cors')
 let webpack = require('webpack')
 let proxyMiddleware = require('http-proxy-middleware')
 let webpackConfig = require('./webpack.dev.conf')
@@ -24,7 +25,7 @@ let devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
 })
-
+app.use(cors())
 let hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}
 })
@@ -53,6 +54,10 @@ app.use(hotMiddleware)
 
 let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
+
+
+
+
 
 let uri = 'http://localhost:' + port
 
