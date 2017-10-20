@@ -43,27 +43,30 @@ let webpackConfig = merge(baseWebPackConfig, {
       compress: {
         warnings: false
       },
-      sourceMap: false
+      except: ['$']  
     }),
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].css?v=[chunkhash:7]')
-    }),
+    new ExtractTextPlugin(utils.assetsPath('css/[name].css?v=[chunkhash:7]')),
+    // new ExtractTextPlugin('style.css'),
     new OptimizeCSSPlugin({
       cssProcessorOptions: {
         safe: true
       }
     }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   minChunks: (module, count) => {
-    //     let resource = module.resource
-    //     return resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
-    //   }
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'mainfest',
-    //   chunks: ['vendor']
-    // })
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: (module, count) => {
+        let resource = module.resource
+        let flag=  resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
+        if(flag){
+          // console.log(resource)
+        }
+        return flag
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'mainfest',
+      chunks: ['vendor']
+    })
   ]
 })
 
@@ -101,7 +104,6 @@ for (var page in pages) {
 
 if (config.build.productionGzip) {
   let CompressionWebpackPlugin = require('compression-webpack-plugin')
-
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       asset: '[path].gz[query]',
@@ -121,5 +123,4 @@ if (config.build.bundleAnalyzerReport) {
 
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
-
 module.exports = webpackConfig

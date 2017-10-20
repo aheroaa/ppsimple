@@ -22,6 +22,7 @@ module.exports = {
       //   loader: 'eslint-loader',
       //   enforce: 'pre',
       //   include: [paths.src_path],
+      //   exclude: /\.min\.(js|css)/,
       //   options: {
       //     formatter: require('eslint-friendly-formatter')
       //   }
