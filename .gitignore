@@ -61,4 +61,4 @@ typings/
 src/
 dist/
 static/
-input/index.conf.json
+input/*.json

@@ -29,22 +29,6 @@ let webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-let pages = utils.getEntries(path.join(config.pro_path, '!(node_modules|bower_components)**/**/html/**/*.html'))
-for (var page in pages) {
-  let conf = {
-    filename: page + '.html',
-    template: pages[page],
-    inject: true,
-    chunkSortMode: 'dependency',
-    minify: {
-      removeComments: true,
-      removeAttributeQuotes: true,
-      collapseWhitespace: false
-    },
-    chunks: Object.keys(config.entry).filter(x => x === page)
-  }
-  webpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
-}
 
 webpackConfig.plugins.push(
   new VConsolePlugin({

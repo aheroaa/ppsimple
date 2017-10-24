@@ -1,9 +1,12 @@
 let utils = require('./utils')
 let config = require('../config')
 let paths = require('../input')
+let path = require('path')
+let HtmlWebpackPlugin = require('html-webpack-plugin')
 let vueLoaderConfig = require('./vue-loader.conf')
 
-module.exports = {
+
+let webpackConfig={
   entry: config.entry,
   output: {
     path: config.build.assetsRoot, // config.build.assetsPublicPath, 
@@ -66,3 +69,28 @@ module.exports = {
     ]
   }
 }
+
+webpackConfig.plugins=webpackConfig.plugins || []
+
+
+let pages = utils.getEntries(path.join(config.src_path, '**/html/**/*.html'), path.join(config.src_path,'html'))
+for (var page in pages) {  
+  let conf = {
+    filename: page + '.html',
+    template: pages[page],
+    inject: true,
+    chunkSortMode: 'dependency',
+    minify: {
+      removeComments: true,
+      removeAttributeQuotes: true,
+      collapseWhitespace: false
+    },
+    chunks: Object.keys(config.entry).filter(x => x === page)
+  }
+  webpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
+}
+
+
+
+
+module.exports = webpackConfig

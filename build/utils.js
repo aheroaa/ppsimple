@@ -1,6 +1,7 @@
 var path = require('path')
+var utils = require('../config/utils')
 var config = require('../config')
-var glob = require('glob')
+
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 exports.assetsPath = function (_path) {
@@ -73,12 +74,4 @@ exports.styleLoaders = function (options) {
     return output
 }
 
-
-exports.getEntries = function (globPath) {
-    var entries = {}
-    glob.sync(globPath).forEach(function (entry) {
-        var moduleName = entry.match(/(\w+).\w+$/)[1];
-        entries[moduleName] = entry
-    });
-    return entries;
-}
+exports.getEntries = utils.getEntries

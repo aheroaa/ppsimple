@@ -6,7 +6,6 @@ let config = require('../config')
 let merge = require('webpack-merge')
 let baseWebPackConfig = require('./webpack.base.conf')
 let CopyWebpackPlugin = require('copy-webpack-plugin')
-let HtmlWebpackPlugin = require('html-webpack-plugin')
 let ExtractTextPlugin = require('extract-text-webpack-plugin')
 let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
@@ -85,22 +84,7 @@ try {
 }
 
 
-let pages = utils.getEntries(path.join(config.pro_path, '!(node_modules|bower_components)**/**/html/**/*.html'))
-for (var page in pages) {
-  let conf = {
-    filename: page + '.html',
-    template: pages[page],
-    inject: true,
-    chunkSortMode: 'dependency',
-    minify: {
-      removeComments: true,
-      removeAttributeQuotes: true,
-      collapseWhitespace: false
-    },
-    chunks: Object.keys(config.entry).filter(x => x === page)
-  }
-  webpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
-}
+
 
 if (config.build.productionGzip) {
   let CompressionWebpackPlugin = require('compression-webpack-plugin')
