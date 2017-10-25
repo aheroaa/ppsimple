@@ -20,8 +20,8 @@ let webpackConfig = merge(baseWebPackConfig, {
   devtool: false, // config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].js?v=[chunkhash:7]'),
-    chunkFilename: utils.assetsPath('js/[id].js?v=[chunkhash:7]')
+    filename: utils.assetsPath('[name].js?v=[chunkhash:7]'),
+    chunkFilename: utils.assetsPath('[id].js?v=[chunkhash:7]')
   },
   node: {
     'fs': 'empty',
@@ -45,14 +45,13 @@ let webpackConfig = merge(baseWebPackConfig, {
       except: ['$']  
     }),
     new ExtractTextPlugin(utils.assetsPath('css/[name].css?v=[chunkhash:7]')),
-    // new ExtractTextPlugin('style.css'),
     new OptimizeCSSPlugin({
       cssProcessorOptions: {
         safe: true
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      name: 'common/js/vendor',
       minChunks: (module, count) => {
         let resource = module.resource
         let flag=  resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
@@ -63,7 +62,7 @@ let webpackConfig = merge(baseWebPackConfig, {
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'mainfest',
+      name: 'common/js/mainfest',
       chunks: ['vendor']
     })
   ]

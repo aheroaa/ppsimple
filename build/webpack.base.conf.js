@@ -73,7 +73,7 @@ let webpackConfig={
 webpackConfig.plugins=webpackConfig.plugins || []
 
 
-let pages = utils.getEntries(path.join(config.src_path, '**/html/**/*.html'), path.join(config.src_path,'html'))
+let pages = utils.getEntries(path.join(config.src_path, '**/*.html'), path.join(config.src_path))
 for (var page in pages) {  
   let conf = {
     filename: page + '.html',
@@ -85,7 +85,9 @@ for (var page in pages) {
       removeAttributeQuotes: true,
       collapseWhitespace: false
     },
-    chunks: Object.keys(config.entry).filter(x => x === page)
+    chunks: Object.keys(config.entry).filter(x => {
+      return x.replace(/js[\/\\]*/,'') === page.replace(/html[\/\\]*/,'') 
+    }).concat(['common/js/vendor','common/js/mainfest'])
   }
   webpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
 }

@@ -9,20 +9,20 @@ let pro_path = paths.pro_path
 module.exports = {
   pro_path: pro_path,
   src_path: paths.src_path,
-  entry: utils.getEntries(path.join(paths.src_path, paths.entry_expr), path.join(paths.src_path, 'js')),
+  entry: utils.getEntries(path.join(paths.src_path, paths.entry_expr), path.join(paths.src_path)),
   build: {
     env: env.NODE_ENV,
     index: path.resolve(pro_path, paths.asset_path, 'index.html'),
     assetsRoot: path.resolve(pro_path, paths.asset_path),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '..',
+    assetsSubDirectory: '.',
+    assetsPublicPath: '../',
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
     bundleAnalyzerReport: process.env.npm_config_report
   },
   dev_o: {
-    assetsSubDirectory: 'static'
+    assetsSubDirectory: '.'
   },
   dev: {
     after: (app) => {},
