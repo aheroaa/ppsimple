@@ -15,7 +15,7 @@ module.exports = {
     index: path.resolve(pro_path, paths.asset_path, 'index.html'),
     assetsRoot: path.resolve(pro_path, paths.asset_path),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '',
+    assetsPublicPath: '..',
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
