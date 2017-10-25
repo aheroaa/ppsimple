@@ -55,7 +55,7 @@ let webpackConfig={
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[ext]?v=[hash:7')
+          name: utils.assetsPath('img/[name].[ext]?v=[hash:7]')
         }
       },
       {

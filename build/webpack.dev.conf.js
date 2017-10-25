@@ -25,8 +25,13 @@ let webpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
+    // new webpack.HotModuleReplacementPlugin({
+    //   // Options...
+    // }),
     new FriendlyErrorsPlugin()
-  ]
+  ],
+  devServer: config.dev
 })
 
 
