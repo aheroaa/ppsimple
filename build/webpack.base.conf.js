@@ -65,6 +65,10 @@ let webpackConfig={
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[ext]?v=[hash:7]')
         }
+      },
+      {
+        test: /\.art$/,
+        loader: 'raw-loader'
       }
     ]
   }

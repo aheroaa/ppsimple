@@ -5,7 +5,7 @@ const webpackConfig = require('./webpack.dev.conf')
 const WebpackDevServer = require('webpack-dev-server');
 const cors = require('cors')
 const options = require('../config').dev
-
+let config = require('../config')
 
 WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
 

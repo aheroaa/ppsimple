@@ -60,5 +60,7 @@ typings/
 # src file
 src/
 dist/
+asset/
 static/
 input/*.json
+

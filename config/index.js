@@ -5,7 +5,6 @@ let devenv = require('./dev.env')
 let paths = require('../input')
 var glob = require('glob')
 let pro_path = paths.pro_path
-
 module.exports = {
   pro_path: pro_path,
   src_path: paths.src_path,
@@ -52,7 +51,7 @@ module.exports = {
     // proxy: {},
     // progress: true,    // cli
     // public: "myapp.test:80", 
-    publicPath: '/',
+    publicPath: '/src/',
     // quiet: true,
     // socket: 'socket',
     stats: {

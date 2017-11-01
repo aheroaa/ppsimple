@@ -1,6 +1,6 @@
 {
   "name": "ppsimple",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "project simple pack",
   "main": "index.js",
   "keywords": [
@@ -19,7 +19,7 @@
     "url": "https://github.com/aheroaa/ppsimple.git"
   },
   "dependencies": {
-    "emf": "^1.0.13",
+    "emf": "^1.0.14",
     "pop": "^1.0.7",
     "poptest": "^1.1.0",
     "share": "^1.0.8"
@@ -49,6 +49,7 @@
     "node-sass": "^4.5.1",
     "optimize-css-assets-webpack-plugin": "^3.0.0",
     "ora": "^1.1.0",
+    "raw-loader": "^0.5.1",
     "resolve-url-loader": "^2.0.2",
     "rimraf": "^2.6.0",
     "sass-loader": "^6.0.3",

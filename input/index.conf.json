@@ -1,7 +1,7 @@
 {
-  "root": "../../",
-  "entry": "**/js/**/*.js",
-  "src": "cbox/src",
+  "root": "../",
+  "entry": "**/js/*.js",
+  "src": "/src",
   "dist": "asset",
   "asset": "asset",
   "devport": 6001
