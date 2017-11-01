@@ -11,9 +11,7 @@ let webpackConfig={
   output: {
     path: config.build.assetsRoot, // config.build.assetsPublicPath, 
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production' ?
-      config.build.assetsPublicPath :
-      config.dev.assetsPublicPath
+    publicPath: config.build.assetsPublicPath 
   },
   resolve: {
     extensions: ['.js', '.json']

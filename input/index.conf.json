@@ -1,8 +1,0 @@
-{
-  "root": "../",
-  "entry": "**/js/*.js",
-  "src": "/src",
-  "dist": "asset",
-  "asset": "asset",
-  "devport": 6001
-}

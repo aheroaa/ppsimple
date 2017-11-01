@@ -11,17 +11,16 @@ module.exports = {
   entry: utils.getEntries(path.join(paths.src_path, paths.entry_expr), path.join(paths.src_path)),
   build: {
     env: env.NODE_ENV,
+    // 首页
     index: path.resolve(pro_path, paths.asset_path, 'index.html'),
+    // 资源目录
     assetsRoot: path.resolve(pro_path, paths.asset_path),
-    assetsSubDirectory: '.',
-    assetsPublicPath: '../',
+    // 资源发布目录
+    assetsPublicPath: paths.asset_public_path,
     productionSourceMap: true,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
     bundleAnalyzerReport: process.env.npm_config_report
-  },
-  dev_o: {
-    assetsSubDirectory: '.'
   },
   dev: {
     after: (app) => {},
@@ -31,8 +30,8 @@ module.exports = {
     clientLogLevel: 'info', // none error warning info
     // color: true,
     // compress: true,
-    // contentBase: path.resolve(pro_path, paths.asset_path),
-    // disableHostCheck: true,
+    // contentBase: 'd:\\',
+    disableHostCheck: true,
     // filename: '', // 在惰性模式中，此选项可减少编译。 默认在惰性模式，每个请求结果都会产生全新的编译。使用 filename，可以只在某个文件被请求时编译。
     // headers: {},
     // host: '0.0.0.0',
@@ -51,7 +50,7 @@ module.exports = {
     // proxy: {},
     // progress: true,    // cli
     // public: "myapp.test:80", 
-    publicPath: '/src/',
+    publicPath: '/',
     // quiet: true,
     // socket: 'socket',
     stats: {
