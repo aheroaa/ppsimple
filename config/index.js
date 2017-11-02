@@ -40,7 +40,7 @@ module.exports = {
     // hot: true,
     hotOnly: true, // Enables Hot Module Replacement (see devServer.hot) without page refresh as fallback in case of build failures.
     // https: false,
-    // inline : false, // false to iframe
+    inline : false, // false to iframe
     // lazy: false,  // 当启用 lazy 时，dev-server 只有在请求时才编译包(bundle)。这意味着 webpack 不会监视任何文件改动。我们称之为“惰性模式”。
     noInfo: true, // 启用 noInfo 后，诸如「启动时和每次保存之后，那些显示的 webpack 包(bundle)信息」的消息将被隐藏。错误和警告仍然会显示。
     open: true, // When open is enabled, the dev server will open the browser.
