@@ -10,3 +10,8 @@
 - 使用webpack的devServer参数而非使用使用dev server中间件
 - 优化目录结构，将html及js都放到src目录里，并能在开发时一一对应
 - 热加载，使用刷新方式
+
+### v3.0.5 (2017-11-02)
+
+- 抽出index.current.conf.json 使得所有项目通用
+- 增加静态文件配置，支持拷贝静态文件目录

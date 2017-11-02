@@ -69,17 +69,26 @@ let webpackConfig = merge(baseWebPackConfig, {
 })
 
 try {
-  if (fs.statSync(path.resolve(config.pro_path, 'static')).isDirectory()) {
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([{
+    let copydirs=[]
+    if(fs.existsSync(path.join(config.pro_path, 'static'))){
+      copydirs.push({
         from: path.resolve(config.pro_path, 'static'),
-        to: config.build.assetsSubDirectory,
+        to: config.build.assetsRoot,
         ignore: ['.*']
-      }])
+      })
+    }
+    copydirs=copydirs.concat(config.dirStaticCopy.map(x=>{
+      return {
+        context: path.resolve(config.src_path),
+        from: path.resolve(path.join(config.src_path,"**",x,"*")),
+        to: config.build.assetsRoot
+      }
+    }))
+    webpackConfig.plugins.push(      
+      new CopyWebpackPlugin(copydirs)
     )
-  }
 } catch (e) {
-
+  console.log("error",e)
 }
 
 

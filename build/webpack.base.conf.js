@@ -87,7 +87,7 @@ for (var page in pages) {
       removeAttributeQuotes: true,
       collapseWhitespace: false
     },
-    chunks: Object.keys(config.entry).filter(x => {
+    chunks:Object.keys(config.entry).filter(x => {
       return x.replace(/js[\/\\]*/,'') === page.replace(/html[\/\\]*/,'') 
     }).concat(['common/js/vendor','common/js/mainfest'])
   }
