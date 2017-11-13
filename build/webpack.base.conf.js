@@ -1,16 +1,17 @@
 let utils = require('./utils')
 let config = require('../config')
 let paths = require('../input')
+let path = require('path')
+let HtmlWebpackPlugin = require('html-webpack-plugin')
 let vueLoaderConfig = require('./vue-loader.conf')
 
-module.exports = {
+
+let webpackConfig={
   entry: config.entry,
   output: {
     path: config.build.assetsRoot, // config.build.assetsPublicPath, 
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production' ?
-      config.build.assetsPublicPath :
-      config.dev.assetsPublicPath
+    publicPath: config.build.assetsPublicPath 
   },
   resolve: {
     extensions: ['.js', '.json']
@@ -22,6 +23,7 @@ module.exports = {
       //   loader: 'eslint-loader',
       //   enforce: 'pre',
       //   include: [paths.src_path],
+      //   exclude: /\.min\.(js|css)/,
       //   options: {
       //     formatter: require('eslint-friendly-formatter')
       //   }
@@ -51,7 +53,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[ext]?v=[hash:7')
+          name: utils.assetsPath('img/[name].[ext]?v=[hash:7]')
         }
       },
       {
@@ -61,7 +63,38 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[ext]?v=[hash:7]')
         }
+      },
+      {
+        test: /\.art$/,
+        loader: 'raw-loader'
       }
     ]
   }
 }
+
+webpackConfig.plugins=webpackConfig.plugins || []
+
+
+let pages = utils.getEntries(path.join(config.src_path, '**/*.html'), path.join(config.src_path))
+for (var page in pages) {  
+  let conf = {
+    filename: page + '.html',
+    template: pages[page],
+    inject: true,
+    chunkSortMode: 'dependency',
+    minify: {
+      removeComments: true,
+      removeAttributeQuotes: true,
+      collapseWhitespace: false
+    },
+    chunks:Object.keys(config.entry).filter(x => {
+      return x.replace(/js[\/\\]*/,'') === page.replace(/html[\/\\]*/,'') 
+    }).concat(['common/js/vendor','common/js/mainfest'])
+  }
+  webpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
+}
+
+
+
+
+module.exports = webpackConfig

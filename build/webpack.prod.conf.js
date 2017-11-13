@@ -6,7 +6,6 @@ let config = require('../config')
 let merge = require('webpack-merge')
 let baseWebPackConfig = require('./webpack.base.conf')
 let CopyWebpackPlugin = require('copy-webpack-plugin')
-let HtmlWebpackPlugin = require('html-webpack-plugin')
 let ExtractTextPlugin = require('extract-text-webpack-plugin')
 let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
@@ -21,8 +20,8 @@ let webpackConfig = merge(baseWebPackConfig, {
   devtool: false, // config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].js?v=[chunkhash:7]'),
-    chunkFilename: utils.assetsPath('js/[id].js?v=[chunkhash:7]')
+    filename: utils.assetsPath('[name].js?v=[chunkhash:7]'),
+    chunkFilename: utils.assetsPath('[id].js?v=[chunkhash:7]')
   },
   node: {
     'fs': 'empty',
@@ -43,65 +42,60 @@ let webpackConfig = merge(baseWebPackConfig, {
       compress: {
         warnings: false
       },
-      sourceMap: false
+      except: ['$']  
     }),
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].css?v=[chunkhash:7]')
-    }),
+    new ExtractTextPlugin(utils.assetsPath('css/[name].css?v=[chunkhash:7]')),
     new OptimizeCSSPlugin({
       cssProcessorOptions: {
         safe: true
       }
     }),
     // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
+    //   name: 'common/js/vendor',
     //   minChunks: (module, count) => {
     //     let resource = module.resource
-    //     return resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
+    //     let flag=  resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
+    //     if(flag){
+    //       // console.log(resource)
+    //     }
+    //     return flag
     //   }
     // }),
     // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'mainfest',
+    //   name: 'common/js/mainfest',
     //   chunks: ['vendor']
     // })
   ]
 })
 
 try {
-  if (fs.statSync(path.resolve(config.pro_path, 'static')).isDirectory()) {
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([{
+    let copydirs=[]
+    if(fs.existsSync(path.join(config.pro_path, 'static'))){
+      copydirs.push({
         from: path.resolve(config.pro_path, 'static'),
-        to: config.build.assetsSubDirectory,
+        to: config.build.assetsRoot,
         ignore: ['.*']
-      }])
+      })
+    }
+    copydirs=copydirs.concat(config.dirStaticCopy.map(x=>{
+      return {
+        context: path.resolve(config.src_path),
+        from: path.resolve(path.join(config.src_path,"**",x,"*")),
+        to: config.build.assetsRoot
+      }
+    }))
+    webpackConfig.plugins.push(      
+      new CopyWebpackPlugin(copydirs)
     )
-  }
 } catch (e) {
-
+  console.log("error",e)
 }
 
 
-let pages = utils.getEntries(path.join(config.pro_path, '!(node_modules|bower_components)**/**/html/**/*.html'))
-for (var page in pages) {
-  let conf = {
-    filename: page + '.html',
-    template: pages[page],
-    inject: true,
-    chunkSortMode: 'dependency',
-    minify: {
-      removeComments: true,
-      removeAttributeQuotes: true,
-      collapseWhitespace: false
-    },
-    chunks: Object.keys(config.entry).filter(x => x === page)
-  }
-  webpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
-}
+
 
 if (config.build.productionGzip) {
   let CompressionWebpackPlugin = require('compression-webpack-plugin')
-
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       asset: '[path].gz[query]',
@@ -121,5 +115,4 @@ if (config.build.bundleAnalyzerReport) {
 
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
-
 module.exports = webpackConfig
