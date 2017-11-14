@@ -9,6 +9,7 @@ module.exports = {
   pro_path: pro_path,
   src_path: paths.src_path,
   dirStaticCopy: paths.dirStaticCopy,
+  needVendor: paths.needVendor,
   entry: utils.getEntries(path.join(paths.src_path, paths.entry_expr), path.join(paths.src_path)),
   build: {
     env: env.NODE_ENV,

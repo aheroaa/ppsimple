@@ -42,53 +42,56 @@ let webpackConfig = merge(baseWebPackConfig, {
       compress: {
         warnings: false
       },
-      except: ['$']  
+      except: ['$']
     }),
     new ExtractTextPlugin(utils.assetsPath('css/[name].css?v=[chunkhash:7]')),
     new OptimizeCSSPlugin({
       cssProcessorOptions: {
         safe: true
       }
-    }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'common/js/vendor',
-    //   minChunks: (module, count) => {
-    //     let resource = module.resource
-    //     let flag=  resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
-    //     if(flag){
-    //       // console.log(resource)
-    //     }
-    //     return flag
-    //   }
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'common/js/mainfest',
-    //   chunks: ['vendor']
-    // })
+    })
   ]
 })
 
-try {
-    let copydirs=[]
-    if(fs.existsSync(path.join(config.pro_path, 'static'))){
-      copydirs.push({
-        from: path.resolve(config.pro_path, 'static'),
-        to: config.build.assetsRoot,
-        ignore: ['.*']
-      })
-    }
-    copydirs=copydirs.concat(config.dirStaticCopy.map(x=>{
-      return {
-        context: path.resolve(config.src_path),
-        from: path.resolve(path.join(config.src_path,"**",x,"*")),
-        to: config.build.assetsRoot
+if (config.needVendor) {
+  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name: 'common/js/vendor',
+    minChunks: (module, count) => {
+      let resource = module.resource
+      let flag = resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
+      if (flag) {
+        // console.log(resource)
       }
-    }))
-    webpackConfig.plugins.push(      
-      new CopyWebpackPlugin(copydirs)
-    )
+      return flag
+    }
+  }))
+  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name: 'common/js/mainfest',
+    chunks: ['vendor']
+  }))
+}
+
+try {
+  let copydirs = []
+  if (fs.existsSync(path.join(config.pro_path, 'static'))) {
+    copydirs.push({
+      from: path.resolve(config.pro_path, 'static'),
+      to: config.build.assetsRoot,
+      ignore: ['.*']
+    })
+  }
+  copydirs = copydirs.concat(config.dirStaticCopy.map(x => {
+    return {
+      context: path.resolve(config.src_path),
+      from: path.resolve(path.join(config.src_path, "**", x, "*")),
+      to: config.build.assetsRoot
+    }
+  }))
+  webpackConfig.plugins.push(
+    new CopyWebpackPlugin(copydirs)
+  )
 } catch (e) {
-  console.log("error",e)
+  console.log("error", e)
 }
 
 

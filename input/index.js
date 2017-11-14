@@ -8,6 +8,7 @@ conf = Object.assign({
   "dist": "asset",
   "asset": "asset",
   "assetPublicPath": "../",
+  "needVendor":true,
   "devport": 6001,
   'dirStaticCopy': []
 }, conf)
@@ -25,6 +26,7 @@ let x = {
   asset_public_path: conf.assetPublicPath,
   entry_expr: conf.entry,
   devport: conf.devport,
-  dirStaticCopy: conf.dirStaticCopy
+  dirStaticCopy: conf.dirStaticCopy,
+  needVendor:conf.needVendor
 }
 module.exports=x
