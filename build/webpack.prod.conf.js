@@ -50,21 +50,21 @@ let webpackConfig = merge(baseWebPackConfig, {
         safe: true
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/js/vendor',
-      minChunks: (module, count) => {
-        let resource = module.resource
-        let flag=  resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
-        if(flag){
-          // console.log(resource)
-        }
-        return flag
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/js/mainfest',
-      chunks: ['vendor']
-    })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'common/js/vendor',
+    //   minChunks: (module, count) => {
+    //     let resource = module.resource
+    //     let flag=  resource && /\.js/.test(resource) && /node_modules|util-.*/.test(resource)
+    //     if(flag){
+    //       // console.log(resource)
+    //     }
+    //     return flag
+    //   }
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'common/js/mainfest',
+    //   chunks: ['vendor']
+    // })
   ]
 })
 
