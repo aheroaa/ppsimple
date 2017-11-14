@@ -1,6 +1,6 @@
 {
   "name": "ppsimple",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "project simple pack",
   "main": "index.js",
   "keywords": [
@@ -19,7 +19,7 @@
     "url": "https://github.com/aheroaa/ppsimple.git"
   },
   "dependencies": {
-    "emf": "^1.0.14",
+    "emf": "^1.0.17",
     "pop": "^1.0.7",
     "poptest": "^1.1.0",
     "share": "^1.0.8"

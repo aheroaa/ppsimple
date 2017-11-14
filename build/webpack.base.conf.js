@@ -35,12 +35,12 @@ let webpackConfig={
       },
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        // exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         query: {
           presets: ['es2015']
-        } // ,
-        // include: [paths.src_path]
+        }  ,
+        include: [/emf/,paths.src_path]
       },
       {
         test: /\.scss$/,
